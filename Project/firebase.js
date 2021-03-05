@@ -1,3 +1,6 @@
+import firebase from "firebase/app"
+import "firebase/firestore"
+
 var firebaseConfig = {
     apiKey: "AIzaSyAI62tLeBS5c8AQ0mKgXXHXR4Z-c3wkTW8",
     authDomain: "elite-striker-265012.firebaseapp.com",
@@ -11,4 +14,11 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+
+firebase.initializeApp(firebaseConfig)
+
+export const firestore = firebase.firestore()
+
+export default firebase
 
