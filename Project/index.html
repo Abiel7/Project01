@@ -8,14 +8,131 @@
     <title>Home</title>
 </head>
 <body>
-<header class="main-head">
-    <nav>
-        <h1 id="logo">MV ratings</h1>
-        <ul>
-            <li><a href="#locations">Login</a></li>
-        </ul>
-    </nav>
-</header>
+    <header class="main-head">
+        <nav>
+            <h1 id="logo">MV ratings</h1>
+            <ul>
+                <li><a href="#locations">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <input type="file" id="photo" />
+    <img id="image"/>
+    <button onclick="uploadImage()">Upload Image</button>
+    <!-- Stream video via webcam -->
+
+
+    <!-- Trigger canvas web API -->
+    <button id="snap">Capture</button>
+
+    <!-- Webcam video snapshot -->
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+
+
+
     
+
+          <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-storage.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAI62tLeBS5c8AQ0mKgXXHXR4Z-c3wkTW8",
+    authDomain: "elite-striker-265012.firebaseapp.com",
+    databaseURL: "https://elite-striker-265012.firebaseio.com",
+    projectId: "elite-striker-265012",
+    storageBucket: "elite-striker-265012.appspot.com",
+    messagingSenderId: "195183391360",
+    appId: "1:195183391360:web:593e0db8a3e8ebb2ac2c65",
+    measurementId: "G-DMK91FTKJH"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+
+
+  // under er nødvendig metoder for å t imort filer eller bilder eller vidoer..
+  function uploadImage() {
+      const ref = firebase.storage().ref();
+      const file = document.querySelector("#photo").files[0];
+      const name = +new Date() + "-" + file.name;
+      const metadata = {
+        contentType: file.type
+      };
+      const task = ref.child(name).put(file, metadata);
+      task
+        .then(snapshot => snapshot.ref.getDownloadURL())
+        .then(url => {
+          console.log(url);
+          alert("image laster riktig")
+          const image = document.querySelector("#image")
+          image.src = url
+          
+        })
+        .catch(console.error);
+    }
+
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const snap = document.getElementById("snap");
+const errorMsgElement = document.querySelector('span#errorMsg');
+
+const constraints = {
+  audio: false,
+  video: {
+    width: 400, height: 400
+  }
+};
+
+// Access webcam
+async function init() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    handleSuccess(stream);
+  } catch (e) {
+    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+  }
+}
+
+// Success
+function handleSuccess(stream) {
+  window.stream = stream;
+  video.srcObject = stream;
+}
+
+// Load init
+init();
+
+// Draw image
+var context = canvas.getContext('2d');
+snap.addEventListener("click", function() {
+    context.drawImage(video, 0, 0, 640, 480);
+    var image = new Image();
+image.id = "pic";
+image.src = canvas.toDataURL();
+console.log(image.src)
+var button = document.createElement('button')
+button.textContent = 'Upload Image'
+document.body.appendChild(button)
+
+button.onclick = function() {
+    const ref = firebase.storage().ref();
+    ref.child(new Date() + '-' + 'base64').putString(image.src, 'data_url').then(function(snapshot) {
+    console.log('Uploaded a data_url string!');
+    alert("Image Uploaded")
+});
+}
+});
+    </script>
 </body>
 </html>
