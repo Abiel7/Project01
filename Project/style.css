@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html {
   font-size: 62.5%;
 }
@@ -11,9 +12,15 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.home {
+  margin-left: 50%;
+  margin-right: 50%;
+}
+
 h1 {
   font-size: 2.6rem;
 }
+
 li,
 button,
 label,
@@ -21,21 +28,26 @@ input,
 p {
   font-size: 2rem;
 }
+
 h2 {
   font-size: 4.8rem;
 }
+
 h3 {
   font-size: 3rem;
   font-weight: normal;
 }
+
 h4,
 h5 {
   font-size: 2.8rem;
 }
+
 a {
   color: white;
   text-decoration: none;
 }
+
 button {
   padding: 2rem 6rem;
   background: #4c6e97;
@@ -45,9 +57,11 @@ button {
   cursor: pointer;
   transition: background 0.5s ease-in-out;
 }
+
 button:hover {
   background: #27394e;
 }
+
 
 /* Nav Section With HERO */
 
@@ -58,6 +72,7 @@ button:hover {
   top: 0px;
   z-index: 3;
 }
+
 nav {
   display: flex;
   width: 90%;
@@ -75,8 +90,32 @@ nav ul {
   align-items: center;
   list-style: none;
 }
+
 #logo {
   flex: 2 1 40rem;
   font-family: "Pattaya", sans-serif;
   font-weight: 400;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container .button-container {
+  margin-left: 20px;
+}
+
+.container .button-container a {
+  background-color: rgb(46, 27, 131);
+  border: 2px solid #2199e8;
+  padding: 15px 35px;
+  border-radius: 4px;
+}
+
+.container .button-container a:hover {
+  background-color: #2199e8;
+  color: #fff;
 }
